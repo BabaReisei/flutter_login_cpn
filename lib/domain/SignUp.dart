@@ -1,6 +1,9 @@
 import 'package:login_mod/domain/Crypto.dart';
 import 'package:login_mod/repository/db/LoginDao.dart';
 
+/**
+ * 新規ユーザ登録実装クラス
+ */
 class SignUp {
   SignUp(this.loginId, this.loginPw, this.email);
 
@@ -8,6 +11,10 @@ class SignUp {
   final String loginPw;
   final String email;
 
+  /**
+   * 新規ユーザ登録処理
+   * @return 登録結果をFuture型で返却
+   */
   Future<bool> registration() async {
     LoginDao dao = new LoginDao();
     var user = await dao.get(loginId.trim());

@@ -3,6 +3,10 @@ import 'package:login_mod/domain/Crypto.dart';
 import 'package:login_mod/domain/SignIn.dart';
 import 'package:login_mod/repository/db/LoginDao.dart';
 
+/**
+ * ログイン画面クラス
+ */
+
 class LoginView extends StatefulWidget {
   LoginView({Key key, this.title}) : super(key: key);
 
@@ -12,26 +16,24 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
+/**
+ * ログイン画面STATEクラス
+ */
 class _LoginViewState extends State<LoginView> {
   int _counter = 0;
   final idController = TextEditingController();
   final pwController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /**
+   * ウィジェット生成
+   * @param context ビルドコンテキスト
+   * @return ウィジェット
+   */
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     var pushedLoginButton = true;
-/**/
-    LoginDao dao = new LoginDao();
-    dao.getAll().then((users) {
-      Crypto crypto = new Crypto();
-      for (User user in users) {
-        print(
-            "id: ${user.id}, loginId: ${user.loginId}, loginPw: ${crypto.targetDecrypt(user.loginPw)}, email: ${user.email}");
-      }
-    });
-/**/
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -42,8 +44,10 @@ class _LoginViewState extends State<LoginView> {
         return Form(
           key: _formKey,
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              // 入力フォーム部
+              // ログインID入力
               Container(
                 margin: EdgeInsets.only(
                   top: 30.0,
@@ -65,6 +69,8 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+
+              // パスワード入力
               Container(
                 margin: EdgeInsets.only(
                   left: 50.0,
@@ -88,6 +94,9 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+
+              // ボタン部
+              // ログインボタン
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -119,6 +128,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ],
               ),
+              // パスワード再設定部分
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Container(
                     margin: EdgeInsets.all(10.0),
@@ -146,13 +156,14 @@ class _LoginViewState extends State<LoginView> {
                         }
                       }),
                       child: Text(
-                        '再発行',
+                        '再設定',
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
                     )),
               ]),
+              // 新規登録ボタン
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Container(
                   margin: EdgeInsets.all(10.0),

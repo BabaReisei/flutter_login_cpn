@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:login_mod/domain/Crypto.dart';
 import 'package:login_mod/repository/db/LoginDao.dart';
 
+/**
+ * 新パスワード設定画面クラス
+ */
 class SetNewPwView extends StatefulWidget {
   SetNewPwView({Key key, this.title}) : super(key: key);
   final String title;
@@ -10,10 +13,18 @@ class SetNewPwView extends StatefulWidget {
   _SetNewPwViewState createState() => _SetNewPwViewState();
 }
 
+/**
+ * 新パスワード設定画面Stateクラス
+ */
 class _SetNewPwViewState extends State<SetNewPwView> {
   final _formKey = GlobalKey<FormState>();
   final pwController = TextEditingController();
 
+  /**
+   * ウィジェット生成
+   * @param context ビルドコンテキスト
+   * @return ウィジェット
+   */
   @override
   Widget build(BuildContext context) {
     String loginId = ModalRoute.of(context).settings.arguments;
@@ -25,7 +36,7 @@ class _SetNewPwViewState extends State<SetNewPwView> {
       body: Form(
         key: _formKey,
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
+          // 新パスワード入力フォーム
           children: [
             Container(
               margin: EdgeInsets.only(
@@ -49,6 +60,7 @@ class _SetNewPwViewState extends State<SetNewPwView> {
                 ),
               ),
             ),
+            // パスワード更新ボタン
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 margin: EdgeInsets.all(10.0),
@@ -70,6 +82,7 @@ class _SetNewPwViewState extends State<SetNewPwView> {
                         dao.update(newPwUser);
                       });
                       _formKey.currentState.save();
+                      // 登録完了ダイアログ
                       showDialog(
                           context: context,
                           builder: (_) {

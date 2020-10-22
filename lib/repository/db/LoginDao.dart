@@ -23,11 +23,11 @@ class LoginDao extends DbFactory {
   }
 
   /**
-   * メモの登録処理
+   * ユーザの登録処理
    * <ul>
-   *   <li>新規メモをDBへ登録</li>
+   *   <li>新規ユーザをDBへ登録</li>
    * </ul>
-   * @param memo 新規メモ
+   * @param user 新規ユーザ
    */
   @override
   Future<void> save(var user) async {
@@ -64,8 +64,8 @@ class LoginDao extends DbFactory {
   /**
    * ログインIDの取得処理
    * <ul>
-   *   <li>重複するログインんIDの有無を確認する。</li>
-   *   <li>取得したメモはListに格納される</li>
+   *   <li>重複するログインIDの有無を確認する。</li>
+   *   <li>取得したユーザはListに格納される</li>
    * </ul>
    * @param loginId 取得するレコードのログインID
    * @return 取得したユーザのリストをFuture型で返却
@@ -75,7 +75,7 @@ class LoginDao extends DbFactory {
     // DB接続
     Database db = await connectDb();
 
-    // メモをMapで取得
+    // ユーザをMapで取得
     int num = await count(loginId);
     if (num == 0) {
       return null;
@@ -83,7 +83,7 @@ class LoginDao extends DbFactory {
     List<Map<String, dynamic>> maps =
         await db.rawQuery("select * from user where login_id = '$loginId'");
 
-    // 取得したメモのMapをVO型へ変換し呼び出し元へ返却
+    // 取得したユーザのMapをVO型へ変換し呼び出し元へ返却
     return User(
       id: maps[0]['id'],
       loginId: maps[0]['login_id'],
@@ -96,19 +96,19 @@ class LoginDao extends DbFactory {
    * 全ユーザの取得処理
    * <ul>
    *   <li>DBからユーザを取得</li>
-   *   <li>取得したメモはListに格納される</li>
+   *   <li>取得したユーザはListに格納される</li>
    * </ul>
-   * @return 取得したメモのリストをFuture型で返却
+   * @return 取得したユーザのリストをFuture型で返却
    */
   @override
   Future<List<User>> getAll() async {
     // DB接続
     Database db = await connectDb();
 
-    // メモをMapのListで取得
+    // ユーザをMapのListで取得
     List<Map<String, dynamic>> maps = await db.rawQuery("select * from user");
 
-    // 取得したメモのMapをVO型へ変換し呼び出し元へ返却
+    // 取得したユーザのMapをVO型へ変換し呼び出し元へ返却
     List<User> users = List.generate(maps.length, (i) {
       return User(
         id: maps[i]['id'],

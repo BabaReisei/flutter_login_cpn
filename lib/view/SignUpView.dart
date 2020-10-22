@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:login_mod/domain/SignUp.dart';
 
+/**
+ * 新規登録画面クラス
+ */
 class SignUpView extends StatefulWidget {
   SignUpView({Key key, this.title}) : super(key: key);
 
@@ -10,6 +13,9 @@ class SignUpView extends StatefulWidget {
   _SignUpViewState createState() => _SignUpViewState();
 }
 
+/**
+ * 新規登録画面Stateクラス
+ */
 class _SignUpViewState extends State<SignUpView> {
   int _counter = 0;
   final idController = TextEditingController();
@@ -17,12 +23,11 @@ class _SignUpViewState extends State<SignUpView> {
   final mailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+  /**
+   * ウィジェット生成
+   * @param context ビルドコンテキスト
+   * @return ウィジェット
+   */
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -38,6 +43,7 @@ class _SignUpViewState extends State<SignUpView> {
             key: _formKey,
             child: Column(
               children: [
+                // ログインID入力フォーム
                 Container(
                   margin: EdgeInsets.only(
                     top: 10.0,
@@ -67,6 +73,7 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                       child: Text('ログインＩＤ'),
                     ),
+                    // パスワード入力フォーム
                     Container(
                       height: 50.0,
                       width: quarterSize * 4,
@@ -170,6 +177,7 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 Row(
                   children: [
+                    // eメール入力フォーム
                     Container(
                       height: 50.0,
                       width: quarterSize * 2,
@@ -230,6 +238,7 @@ class _SignUpViewState extends State<SignUpView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // 登録ボタン
                     Container(
                       margin: EdgeInsets.all(10.0),
                       child: RaisedButton(
@@ -251,6 +260,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 );
                               } else {
                                 _formKey.currentState.save();
+                                // 登録完了ダイアログ
                                 showDialog(
                                     context: context,
                                     builder: (_) {
@@ -281,6 +291,7 @@ class _SignUpViewState extends State<SignUpView> {
                         ),
                       ),
                     ),
+                    // キャンセルボタン
                     Container(
                       child: RaisedButton(
                         onPressed: (() {
